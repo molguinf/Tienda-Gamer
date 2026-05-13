@@ -7,35 +7,187 @@ include 'views/includes/header.php';
 ?>
 
 <!-- SECCIÓN 1: HERO / BANNER PRINCIPAL -->
-<header class="bg-dark text-white py-5" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('assets/img/banner-bg.jpg') center/cover;">
-    <div class="container py-5 text-center">
-        <h1 class="display-3 fw-bold text-primary">TIENDA <span class="text-white">GAMER</span></h1>
-        <p class="lead mb-4">Equipamiento de alto rendimiento para pro-players.</p>
-        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <a href="#productos" class="btn btn-primary btn-lg px-4 gap-3">Explorar Catálogo</a>
-            <a href="#categorias" class="btn btn-outline-light btn-lg px-4">Ver Categorías</a>
+
+<!-- HERO SECTION -->
+<header class="hero-section">
+
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-content">
+
+        <div class="row align-items-center min-vh-100">
+
+            <!-- TE
+XTO -->
+            <div class="col-lg-6 text-center text-lg-start">
+
+                <span class="hero-badge">
+                    🔥 Tecnología Gamer Premium
+                </span>
+
+                <h1 class="hero-title mt-4">
+                    LEVEL UP <br>
+                    YOUR <span>GAMING</span> EXPERIENCE
+                </h1>
+
+                <p class="hero-description mt-4">
+                    Descubre los mejores periféricos, laptops y accesorios gamer
+                    con tecnología de última generación para dominar cada partida.
+                </p>
+
+                <div class="hero-buttons mt-5">
+
+                    <a href="#productos" class="btn btn-hero-primary">
+                        Explorar Catálogo
+                    </a>
+
+                    <a href="#categorias" class="btn btn-hero-secondary">
+                        Ver Categorías
+                    </a>
+
+                </div>
+
+                <!-- STATS -->
+                <div class="hero-stats mt-5">
+
+                    <div class="stat-box">
+                        <h3>+500</h3>
+                        <p>Productos</p>
+                    </div>
+
+                    <div class="stat-box">
+                        <h3>+2K</h3>
+                        <p>Clientes</p>
+                    </div>
+
+                    <div class="stat-box">
+                        <h3>24/7</h3>
+                        <p>Soporte</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- IMAGEN -->
+            <div class="col-lg-6 text-center">
+
+                <img 
+                    src="assets/img/setup-gamer.png" 
+                    alt="Setup Gamer"
+                    class="hero-image img-fluid"
+                >
+
+            </div>
+
         </div>
+
     </div>
+
 </header>
 
-<!-- SECCIÓN 2: CATEGORÍAS (Para el Estudiante 2) -->
-<section class="container my-5" id="categorias">
-    <h2 class="text-center fw-bold mb-4">Nuestras Categorías</h2>
-    <div class="row text-center">
-        <div class="col-6 col-md-2 mb-3">
-            <div class="p-3 border rounded shadow-sm bg-light">
-                <i class="bi bi-laptop fs-1"></i>
-                <p class="mb-0">Laptops</p>
-            </div>
+
+
+
+<!-- SECCIÓN 2: CATEGORÍAS -->
+<section class="categories-section py-5" id="categorias">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <h2 class="section-title">Explora Categorías</h2>
+            <p class="section-subtitle">
+                Encuentra el setup perfecto para tu experiencia gamer.
+            </p>
         </div>
-        <div class="col-6 col-md-2 mb-3">
-            <div class="p-3 border rounded shadow-sm bg-light">
-                <p class="mb-0">Monitores</p>
+
+        <div class="row g-4">
+
+            <!-- CATEGORIA -->
+            <div class="col-6 col-md-4 col-lg-2">
+
+                <div class="category-card">
+
+                    <i class="bi bi-laptop category-icon"></i>
+
+                    <h5>Laptops</h5>
+
+                </div>
+
             </div>
+
+            <!-- CATEGORIA -->
+            <div class="col-6 col-md-4 col-lg-2">
+
+                <div class="category-card">
+
+                    <i class="bi bi-display category-icon"></i>
+
+                    <h5>Monitores</h5>
+
+                </div>
+
+            </div>
+
+            <!-- CATEGORIA -->
+            <div class="col-6 col-md-4 col-lg-2">
+
+                <div class="category-card">
+
+                    <i class="bi bi-mouse category-icon"></i>
+
+                    <h5>Mouse</h5>
+
+                </div>
+
+            </div>
+
+            <!-- CATEGORIA -->
+            <div class="col-6 col-md-4 col-lg-2">
+
+                <div class="category-card">
+
+                    <i class="bi bi-keyboard category-icon"></i>
+
+                    <h5>Teclados</h5>
+
+                </div>
+
+            </div>
+
+            <!-- CATEGORIA -->
+            <div class="col-6 col-md-4 col-lg-2">
+
+                <div class="category-card">
+
+                    <i class="bi bi-controller category-icon"></i>
+
+                    <h5>Consolas</h5>
+
+                </div>
+
+            </div>
+
+            <!-- CATEGORIA -->
+            <div class="col-6 col-md-4 col-lg-2">
+
+                <div class="category-card">
+
+                    <i class="bi bi-gpu-card category-icon"></i>
+
+                    <h5>Componentes</h5>
+
+                </div>
+
+            </div>
+
         </div>
-        <!-- Agregar más categorías según tu tabla de la DB -->
+
     </div>
+
 </section>
+
+
 
 <!-- SECCIÓN 3: PRODUCTOS DESTACADOS (Para el Estudiante 3) -->
 <section class="container my-5" id="productos">
@@ -46,20 +198,39 @@ include 'views/includes/header.php';
 
     <div class="row">
         <!-- Ejemplo de un Producto (Esto luego será un bucle PHP) -->
-        <div class="col-md-3 mb-4">
-            <div class="card h-100 shadow-sm border-0">
-                <div class="badge bg-danger position-absolute" style="top: 0.5rem; right: 0.5rem">Oferta</div>
-                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Laptop Gamer">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold">Razer DeathAdder V3</h5>
-                    <p class="card-text text-muted small">Mouse ergonómico ultra ligero para eSports.</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="h5 fw-bold text-primary mb-0">$69.99</span>
-                        <a href="#" class="btn btn-sm btn-dark text-white"><i class="bi bi-cart-plus"></i></a>
-                    </div>
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="product-card">
+                <div class="product-badge">
+                    Oferta
                 </div>
-                <div class="card-footer bg-transparent border-top-0 pb-3">
-                    <button class="btn btn-outline-danger btn-sm w-100">❤️ Favorito</button>
+                <div class="product-image">
+                    <img 
+                        src="https://via.placeholder.com/300x250"
+                        alt="Producto Gamer"
+                        class="img-fluid"
+                    >
+                </div>
+                <div class="product-content">
+                    <span class="product-brand">
+                        Razer
+                    </span>
+                    <h5 class="product-title">
+                        DeathAdder V3 Pro
+                    </h5>
+                    <p class="product-description">
+                        Mouse gamer ultraligero diseñado para eSports profesionales.
+                    </p>
+                    <div class="product-price">
+                        $69.99
+                    </div>
+                    <div class="product-buttons">
+                        <button class="btn-cart">
+                            🛒 Agregar
+                        </button>
+                        <button class="btn-favorite">
+                            ❤️
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -68,24 +239,66 @@ include 'views/includes/header.php';
 </section>
 
 <!-- SECCIÓN 4: BENEFICIOS -->
-<div class="bg-light py-5 border-top">
-    <div class="container text-center">
-        <div class="row">
+<!-- BENEFICIOS -->
+<section class="benefits-section py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">
+                ¿Por qué elegirnos?
+            </h2>
+            <p class="section-subtitle">
+                Tecnología premium, atención especializada y experiencia gamer real.
+            </p>
+        </div>
+        <div class="row g-4">
+
+            <!-- BENEFICIO -->
             <div class="col-md-4">
-                <h4 class="fw-bold">Envío a todo el país</h4>
-                <p>Cochabamba, La Paz, Santa Cruz y más.</p>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        🚚
+                    </div>
+                    <h4>
+                        Envíos Nacionales
+                    </h4>
+                    <p>
+                        Realizamos envíos rápidos y seguros a toda Bolivia.
+                    </p>
+                </div>
             </div>
+            <!-- BENEFICIO -->
             <div class="col-md-4">
-                <h4 class="fw-bold">Garantía Real</h4>
-                <p>12 meses de garantía en todos los equipos.</p>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        🛡️
+                    </div>
+                    <h4>
+                        Garantía Oficial
+                    </h4>
+                    <p>
+                        Todos nuestros productos cuentan con garantía real.
+                    </p>
+                </div>
             </div>
+            <!-- BENEFICIO -->
             <div class="col-md-4">
-                <h4 class="fw-bold">Pagos Seguros</h4>
-                <p>Aceptamos QR, Transferencias y Efectivo.</p>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        ⚡
+                    </div>
+                    <h4>
+                        Rendimiento Gamer
+                    </h4>
+                    <p>
+                        Equipamiento de alto rendimiento para gamers exigentes.
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+
+
 
 <?php 
 // "Pegamos" la parte de abajo
