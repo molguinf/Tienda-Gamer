@@ -11,7 +11,7 @@
     <!-- Google Fonts: Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <!-- Estilos personalizados -->
-    <link rel="stylesheet" href="/TiendaGamer/assets/css/style.css">
+    <link rel="stylesheet" href="/Tienda-Gamer/assets/css/style.css">
     <style>
         body { font-family: 'Poppins', sans-serif; }
         .navbar-brand { letter-spacing: 1px; }
@@ -20,7 +20,9 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow">
+
+
+<nav class="navbar navbar-expand-lg navbar-dark custom-navbar fixed-top">
     <div class="container">
         <a class="navbar-brand fw-bold" href="/TiendaGamer/index.php">
             <span class="text-primary">🎮 TIENDA</span>GAMER

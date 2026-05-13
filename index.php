@@ -43,7 +43,9 @@ include 'views/includes/header.php';
             <a href="#productos" class="btn btn-primary btn-lg px-4 gap-3 shadow">Explorar Catálogo</a>
             <a href="#categorias" class="btn btn-outline-light btn-lg px-4">Ver Categorías</a>
         </div>
+
     </div>
+
 </header>
 
 <!-- SECCIÓN 2: CATEGORÍAS DINÁMICAS -->
@@ -61,6 +63,7 @@ include 'views/includes/header.php';
             </div>
         <?php endforeach; ?>
     </div>
+
 </section>
 
 <!-- SECCIÓN 3: PRODUCTOS DINÁMICOS -->
@@ -131,11 +134,13 @@ include 'views/includes/header.php';
                 <h4 class="fw-bold">Envío a todo el país</h4>
                 <p class="text-muted">Cochabamba, La Paz, Santa Cruz y más ciudades.</p>
             </div>
+            <!-- BENEFICIO -->
             <div class="col-md-4">
                 <i class="bi bi-shield-check fs-1 text-primary mb-3"></i>
                 <h4 class="fw-bold">Garantía Real</h4>
                 <p class="text-muted">12 meses de garantía oficial en todos los equipos.</p>
             </div>
+            <!-- BENEFICIO -->
             <div class="col-md-4">
                 <i class="bi bi-wallet2 fs-1 text-primary mb-3"></i>
                 <h4 class="fw-bold">Pagos Seguros</h4>
@@ -143,7 +148,9 @@ include 'views/includes/header.php';
             </div>
         </div>
     </div>
-</div>
+</section>
+
+
 
 <style>
     /* Estilos adicionales para que se vea Pro */
