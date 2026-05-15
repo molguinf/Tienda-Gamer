@@ -58,23 +58,95 @@ include '../includes/header.php';
                     <div class="product-card position-relative h-100 shadow-sm">
                         <a href="detalle_producto.php?id=<?php echo $p['id_producto']; ?>" class="stretched-link"></a>
                         
-                        <div class="product-image">
-                            <img src="../../assets/img/productos/<?php echo $foto_portada; ?>" 
-                                 class="img-fluid" 
-                                 style="height: 220px; object-fit: cover; width: 100%;">
+                        <div class="product-image-wrapper">
+
+                            <img
+                                src="../../assets/img/productos/<?php echo $foto_portada; ?>"
+                                alt="<?php echo htmlspecialchars($p['nombre']); ?>"
+                                class="product-image"
+                            >
+
                         </div>
 
-                        <div class="product-content p-3">
-                            <h5 class="product-title mt-1 fw-bold"><?php echo htmlspecialchars($p['nombre']); ?></h5>
-                            <div class="product-price fw-bold text-primary fs-5 mb-3">
-                                <?php echo number_format($p['precio'], 2); ?> Bs.
+                        <div class="product-content">
+
+                            <!-- TITULO -->
+                            <h3 class="product-title">
+
+                                <?php echo htmlspecialchars($p['nombre']); ?>
+
+                            </h3>
+
+
+                            <!-- PRECIO -->
+                            <div class="product-price">
+
+                                <?php echo number_format($p['precio'], 2); ?>
+
+                                <span>Bs.</span>
+
                             </div>
-                            
-                            <div class="product-buttons d-flex gap-2" style="position: relative; z-index: 3;">
-                                <?php if($p['stock'] > 0): ?>
-                                    <a href="carrito.php?add=<?php echo $p['id_producto']; ?>" class="btn btn-primary flex-grow-1">🛒 Agregar</a>
+
+
+                            <!-- BOTONES -->
+                            <div class="product-actions">
+
+                                <!-- ADMIN -->
+                                <?php if(isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
+
+                                    <a
+                                        href="../admin/editar_producto.php?id=<?php echo $p['id_producto']; ?>"
+                                        class="btn btn-edit"
+                                    >
+
+                                        ✏️ Editar
+
+                                    </a>
+
+
+                                    <a
+                                        href="../../controllers/ProductoController.php?action=delete&id=<?php echo $p['id_producto']; ?>"
+                                        class="btn btn-delete"
+                                        onclick="return confirm('¿Eliminar producto?')"
+                                    >
+
+                                        <i class="bi bi-trash"></i>
+
+                                    </a>
+
+                                <!-- CLIENTE -->
+                                <?php else: ?>
+
+                                    <?php if($p['stock'] > 0): ?>
+
+                                        <a
+                                            href="../../controllers/CarritoController.php?add=<?php echo $p['id_producto']; ?>"
+                                            class="btn btn-hero-primary w-100"
+                                        >
+
+                                            <i class="bi bi-cart-plus me-2"></i>
+
+                                            Agregar
+
+                                        </a>
+
+                                    <?php else: ?>
+
+                                        <button
+                                            class="btn btn-secondary w-100 rounded-4"
+                                            disabled
+                                        >
+
+                                            Sin Stock
+
+                                        </button>
+
+                                    <?php endif; ?>
+
                                 <?php endif; ?>
+
                             </div>
+
                         </div>
                     </div>
                 </div>

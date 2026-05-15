@@ -24,7 +24,7 @@ try {
         $params[] = "%$busqueda%";
     }
 
-    $query .= " ORDER BY id_producto DESC";
+    $query .= " ORDER BY id_producto DESC LIMIT 4";
 
     $stmtProd = $pdo->prepare($query);
     $stmtProd->execute($params);
@@ -250,8 +250,12 @@ include 'views/includes/header.php';
 
                 <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
 
-                    <div class="product-card">
+                    <div class="product-card position-relative">
 
+                        <a
+                            href="views/cliente/detalle_producto.php?id=<?php echo $p['id_producto']; ?>"
+                            class="stretched-link"
+                        ></a>
                         <!-- BADGES -->
                         <?php if($p['stock'] <= 0): ?>
 
@@ -335,7 +339,7 @@ include 'views/includes/header.php';
 
 
                             <!-- BOTONES -->
-                            <div class="product-actions">
+                            <div class="product-actions position-relative" style="z-index: 5;">
 
                                 <!-- ADMIN -->
                                 <?php if(isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>

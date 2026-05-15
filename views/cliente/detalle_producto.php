@@ -70,18 +70,63 @@ $fotos = explode(',', $p['imagen']);
                 <?php endif; ?>
             </div>
 
-            <div class="d-flex gap-3 mt-5">
-                <?php if($p['stock'] > 0): ?>
-                    <a href="carrito.php?add=<?php echo $p['id_producto']; ?>" class="btn btn-primary btn-lg px-5 flex-grow-1 shadow">
-                        <i class="bi bi-cart-plus me-2"></i> Añadir al Carrito
-                    </a>
-                <?php endif; ?>
-                
-                <a href="../../controllers/FavoritosController.php?add=<?php echo $p['id_producto']; ?>" 
-                   class="btn btn-outline-danger btn-lg">
-                    <i class="bi bi-heart<?php echo (isset($_SESSION['favoritos']) && in_array($p['id_producto'], $_SESSION['favoritos'])) ? '-fill' : ''; ?>"></i>
-                </a>
-            </div>
+            <div class="d-flex gap-3 mt-5 flex-wrap">
+
+    <!-- ADMIN -->
+    <?php if(isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
+
+        <!-- EDITAR -->
+        <a 
+            href="../admin/editar_producto.php?id=<?php echo $p['id_producto']; ?>" 
+            class="btn btn-primary btn-lg px-5 shadow flex-grow-1"
+        >
+
+            <i class="bi bi-pencil-square me-2"></i>
+            Editar Producto
+
+        </a>
+
+        <!-- ELIMINAR -->
+        <a 
+            href="../../controllers/ProductoController.php?action=delete&id=<?php echo $p['id_producto']; ?>"
+            class="btn btn-danger btn-lg shadow"
+            onclick="return confirm('¿Eliminar producto?')"
+        >
+
+            <i class="bi bi-trash"></i>
+
+        </a>
+
+    <!-- CLIENTE -->
+    <?php else: ?>
+
+        <?php if($p['stock'] > 0): ?>
+
+            <a 
+                href="../../controllers/CarritoController.php?add=<?php echo $p['id_producto']; ?>" 
+                class="btn btn-primary btn-lg px-5 flex-grow-1 shadow"
+            >
+
+                <i class="bi bi-cart-plus me-2"></i>
+                Añadir al Carrito
+
+            </a>
+
+        <?php endif; ?>
+
+        <!-- FAVORITOS -->
+        <a 
+            href="../../controllers/FavoritosController.php?add=<?php echo $p['id_producto']; ?>" 
+            class="btn btn-outline-danger btn-lg"
+        >
+
+            <i class="bi bi-heart<?php echo (isset($_SESSION['favoritos']) && in_array($p['id_producto'], $_SESSION['favoritos'])) ? '-fill' : ''; ?>"></i>
+
+        </a>
+
+    <?php endif; ?>
+
+</div>
         </div>
     </div>
 </div>

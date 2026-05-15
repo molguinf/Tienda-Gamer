@@ -5,7 +5,38 @@ require_once '../../config/auth.php';
 
 try {
 
-    $query = "SELECT * FROM Producto ORDER BY id_producto DESC";
+    $por_pagina = 8;
+
+    $pagina_actual = isset($_GET['pagina'])
+        ? (int)$_GET['pagina']
+        : 1;
+
+    if($pagina_actual < 1){
+        $pagina_actual = 1;
+    }
+
+    $inicio = ($pagina_actual - 1) * $por_pagina;
+
+
+    /* TOTAL PRODUCTOS */
+    $total_query = $pdo->query(
+        "SELECT COUNT(*) FROM Producto"
+    );
+
+    $total_productos = $total_query->fetchColumn();
+
+    $total_paginas = ceil(
+        $total_productos / $por_pagina
+    );
+
+
+    /* QUERY PAGINADA */
+    $query = "
+        SELECT * 
+        FROM Producto
+        ORDER BY id_producto DESC
+        LIMIT $inicio, $por_pagina
+    ";
 
     $stmt = $pdo->prepare($query);
     $stmt->execute();
@@ -57,6 +88,10 @@ include '../includes/header.php';
 
                     <div class="product-card position-relative h-100 shadow-sm">
 
+                        <a
+                            href="detalle_producto.php?id=<?php echo $p['id_producto']; ?>"
+                            class="stretched-link"
+                        ></a>
                         <?php if($p['stock'] <= 0): ?>
                             <div class="product-badge bg-secondary">
                                 Agotado
@@ -98,31 +133,76 @@ include '../includes/header.php';
                             </div>
 
                             <!-- BOTONES -->
-                            <div class="d-flex gap-2">
+                            <div
+                                class="product-actions position-relative"
+                                style="z-index: 5;"
+                            >
+                                <!-- ADMIN -->
+                                <?php if(isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
 
-                                <?php if($p['stock'] > 0): ?>
-
+                                    <!-- EDITAR -->
                                     <a
-                                        href="../../controllers/CarritoController.php?add=<?php echo $p['id_producto']; ?>"
-                                        class="btn btn-primary flex-grow-1"
+                                        href="../admin/editar_producto.php?id=<?php echo $p['id_producto']; ?>"
+                                        class="btn btn-edit"
                                     >
-                                        🛒 Agregar
+
+                                        ✏️ Editar
+
                                     </a>
 
+
+                                    <!-- ELIMINAR -->
+                                    <a
+                                        href="../../controllers/ProductoController.php?action=delete&id=<?php echo $p['id_producto']; ?>"
+                                        class="btn btn-delete"
+                                        onclick="return confirm('¿Eliminar producto?')"
+                                    >
+
+                                        <i class="bi bi-trash"></i>
+
+                                    </a>
+
+                                <!-- CLIENTE -->
                                 <?php else: ?>
 
-                                    <button class="btn btn-secondary flex-grow-1" disabled>
-                                        Sin Stock
-                                    </button>
+                                    <?php if($p['stock'] > 0): ?>
+
+                                        <a
+                                            href="../../controllers/CarritoController.php?add=<?php echo $p['id_producto']; ?>"
+                                            class="btn btn-hero-primary flex-grow-1"
+                                        >
+
+                                            <i class="bi bi-cart-plus me-2"></i>
+
+                                            Agregar
+
+                                        </a>
+
+                                    <?php else: ?>
+
+                                        <button
+                                            class="btn btn-secondary flex-grow-1 rounded-4"
+                                            disabled
+                                        >
+
+                                            Sin Stock
+
+                                        </button>
+
+                                    <?php endif; ?>
+
+
+                                    <!-- FAVORITOS -->
+                                    <a
+                                        href="../../controllers/FavoritosController.php?add=<?php echo $p['id_producto']; ?>"
+                                        class="btn btn-favorite"
+                                    >
+
+                                        <i class="bi bi-heart<?php echo (isset($_SESSION['favoritos']) && in_array($p['id_producto'], $_SESSION['favoritos'])) ? '-fill' : ''; ?>"></i>
+
+                                    </a>
 
                                 <?php endif; ?>
-
-                                <a
-                                    href="../../controllers/FavoritosController.php?add=<?php echo $p['id_producto']; ?>"
-                                    class="btn btn-outline-danger"
-                                >
-                                    <i class="bi bi-heart<?php echo (isset($_SESSION['favoritos']) && in_array($p['id_producto'], $_SESSION['favoritos'])) ? '-fill' : ''; ?>"></i>
-                                </a>
 
                             </div>
 
@@ -147,7 +227,78 @@ include '../includes/header.php';
         <?php endif; ?>
 
     </div>
+            <!-- PAGINACION -->
+<?php if($total_paginas > 1): ?>
 
+    <div class="d-flex justify-content-center mt-5">
+
+        <nav>
+
+            <ul class="pagination custom-pagination">
+
+                <!-- ANTERIOR -->
+                <?php if($pagina_actual > 1): ?>
+
+                    <li class="page-item">
+
+                        <a
+                            class="page-link"
+                            href="?pagina=<?php echo $pagina_actual - 1; ?>"
+                        >
+
+                            «
+
+                        </a>
+
+                    </li>
+
+                <?php endif; ?>
+
+
+                <!-- NUMEROS -->
+                <?php for($i = 1; $i <= $total_paginas; $i++): ?>
+
+                    <li class="page-item <?php echo ($i == $pagina_actual) ? 'active' : ''; ?>">
+
+                        <a
+                            class="page-link"
+                            href="?pagina=<?php echo $i; ?>"
+                        >
+
+                            <?php echo $i; ?>
+
+                        </a>
+
+                    </li>
+
+                <?php endfor; ?>
+
+
+                <!-- SIGUIENTE -->
+                <?php if($pagina_actual < $total_paginas): ?>
+
+                    <li class="page-item">
+
+                        <a
+                            class="page-link"
+                            href="?pagina=<?php echo $pagina_actual + 1; ?>"
+                        >
+
+                            »
+
+                        </a>
+
+                    </li>
+
+                <?php endif; ?>
+
+            </ul>
+
+        </nav>
+
+    </div>
+
+<?php endif; ?>
 </section>
 
 <?php include '../includes/footer.php'; ?>

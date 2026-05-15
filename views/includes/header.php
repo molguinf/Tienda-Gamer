@@ -344,6 +344,19 @@ $esAdmin = (
 
                                     </a>
 
+                                <li>
+
+                                    <a 
+                                        class="dropdown-item"
+                                        href="/Tienda-Gamer/views/admin/gestion_categorias.php"
+                                    >
+
+                                        <i class="bi bi-tags me-2"></i>
+
+                                        Gestión Categorías
+
+                                    </a>
+
                                 </li>
 
                             <?php endif; ?>

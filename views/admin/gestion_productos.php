@@ -252,27 +252,40 @@ try {
 
                                 <div class="d-flex justify-content-center gap-2">
 
-                                    <!-- EDITAR -->
-                                    <a
-                                        href="editar_producto.php?id=<?php echo $p['id_producto']; ?>"
-                                        class="inventory-btn edit-btn"
-                                    >
+    <!-- VER -->
+    <a
+        href="../cliente/detalle_producto.php?id=<?php echo $p['id_producto']; ?>"
+        class="inventory-btn"
+        title="Ver Producto"
+    >
 
-                                        <i class="bi bi-pencil"></i>
+        <i class="bi bi-eye"></i>
 
-                                    </a>
+    </a>
 
-                                    <!-- ELIMINAR -->
-                                    <button
-                                        onclick="confirmarEliminar(<?php echo $p['id_producto']; ?>)"
-                                        class="inventory-btn delete-btn"
-                                    >
+    <!-- EDITAR -->
+    <a
+        href="editar_producto.php?id=<?php echo $p['id_producto']; ?>"
+        class="inventory-btn edit-btn"
+        title="Editar"
+    >
 
-                                        <i class="bi bi-trash"></i>
+        <i class="bi bi-pencil"></i>
 
-                                    </button>
+    </a>
 
-                                </div>
+    <!-- ELIMINAR -->
+    <button
+        onclick="confirmarEliminar(<?php echo $p['id_producto']; ?>)"
+        class="inventory-btn delete-btn"
+        title="Eliminar"
+    >
+
+        <i class="bi bi-trash"></i>
+
+    </button>
+
+</div>
 
                             </td>
 
