@@ -59,7 +59,7 @@
 <!-- Scripts de Bootstrap (Necesarios para el menú desplegable y móvil) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Tu propio script JS para validaciones -->
-<script src="/TiendaGamer/assets/js/main.js"></script>
+<script src="/Tienda-Gamer/assets/js/main.js"></script>
 
 </body>
 </html>

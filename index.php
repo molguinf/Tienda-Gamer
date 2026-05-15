@@ -97,7 +97,6 @@ include 'views/includes/header.php';
 
 
 <!-- SECCIÓN 2: CATEGORÍAS DINÁMICAS -->
-
 <!-- CATEGORÍAS -->
 <section class="categories-section py-5" id="categorias">
 
@@ -131,7 +130,23 @@ include 'views/includes/header.php';
                         <div class="category-card">
 
                             <div class="category-icon">
-                                <i class="bi bi-controller"></i>
+
+                                <?php
+                                $iconos = [
+                                    'Laptops' => 'bi-laptop',
+                                    'Monitores' => 'bi-display',
+                                    'Periféricos' => 'bi-mouse',
+                                    'Mouse' => 'bi-mouse',
+                                    'Teclados' => 'bi-keyboard',
+                                    'Consolas' => 'bi-controller',
+                                    'Componentes' => 'bi-gpu-card'
+                                ];
+
+                                $icono = $iconos[$cat['nombre_categoria']] ?? 'bi-controller';
+                                ?>
+
+                                <i class="bi <?php echo $icono; ?>"></i>
+
                             </div>
 
                             <h5>
@@ -151,6 +166,8 @@ include 'views/includes/header.php';
     </div>
 
 </section>
+
+
 
 <!-- SECCIÓN 3: PRODUCTOS DINÁMICOS -->
 <!-- PRODUCTOS DESTACADOS -->

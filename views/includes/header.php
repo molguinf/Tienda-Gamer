@@ -40,7 +40,7 @@
             
             <div class="d-flex align-items-center">
     <!-- Icono de Favoritos con Contador -->
-    <a href="/TiendaGamer/views/cliente/favoritos.php" class="text-white me-3 position-relative text-decoration-none">
+    <a href="/Tienda-Gamer/views/cliente/favoritos.php" class="text-white me-3 position-relative text-decoration-none">
         <i class="bi bi-heart fs-5"></i>
         <?php if (!empty($_SESSION['favoritos'])): ?>
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">
