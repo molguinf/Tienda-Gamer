@@ -8,7 +8,7 @@ include '../includes/header.php';
 // 1. Obtener todos los usuarios registrados
 try {
     // Ordenamos por rol y luego por nombre para facilitar la lectura
-    $sql = "SELECT id_usuario, nombre, correo, rol, creado_en FROM Usuario ORDER BY rol ASC, nombre ASC";
+    $sql = "SELECT id_usuario, nombre, correo, rol, fecha_registro FROM usuario ORDER BY rol ASC, nombre ASC";
     $stmt = $pdo->query($sql);
     $usuarios = $stmt->fetchAll();
 } catch (PDOException $e) {
@@ -60,7 +60,7 @@ try {
                                     <span class="badge bg-info text-dark px-3 rounded-pill">Cliente</span>
                                 <?php endif; ?>
                             </td>
-                            <td><?php echo date('d/m/Y', strtotime($u['creado_en'])); ?></td>
+                            <td><?php echo date('d/m/Y', strtotime($u['fecha_registro'])); ?></td>
                             <td class="text-center">
                                 <span class="text-success fw-bold small"><i class="bi bi-circle-fill me-1" style="font-size: 8px;"></i> Activo</span>
                             </td>

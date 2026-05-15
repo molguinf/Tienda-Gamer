@@ -49,7 +49,7 @@
             <div class="col-md-12 text-center">
                 <p class="text-secondary small mb-0">
                     &copy; <?php echo date('Y'); ?> <strong>Tienda Gamer</strong> - Bolivia. 
-                    Desarrollado con ❤️ por Constanza y equipo.
+                    
                 </p>
             </div>
         </div>

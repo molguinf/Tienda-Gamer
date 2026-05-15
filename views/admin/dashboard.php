@@ -8,23 +8,24 @@ include '../includes/header.php';
 // 1. Obtener estadísticas para las tarjetas
 try {
     // Total de Ventas (Bs.)
-    $totalVentas = $pdo->query("SELECT SUM(total) FROM Venta WHERE estado != 'Cancelado'")->fetchColumn() ?: 0;
+    $totalVentas = $pdo->query("SELECT SUM(total) FROM Venta WHERE estado_venta != 'Cancelado'")->fetchColumn() ?: 0;
 
-    // Cantidad de Pedidos Pendientes
-    $pedidosPendientes = $pdo->query("SELECT COUNT(*) FROM Venta WHERE estado = 'Pendiente'")->fetchColumn();
+    // 2. Pedidos Pendientes (Corregido: estado_venta)
+    $pedidosPendientes = $pdo->query("SELECT COUNT(*) FROM Venta WHERE estado_venta = 'Pendiente'")->fetchColumn() ?: 0;
 
-    // Cantidad de Usuarios Clientes
+    // 3. Cantidad de Usuarios (Corregido: Tabla Usuario con Mayúscula)
     $totalUsuarios = $pdo->query("SELECT COUNT(*) FROM Usuario WHERE rol = 'cliente'")->fetchColumn();
 
-    // Productos con Stock Crítico (Menos de 5 unidades)
-    $stmtCritico = $pdo->query("SELECT COUNT(*) FROM Producto WHERE stock <= 5");
-    $stockCriticoCount = $stmtCritico->fetchColumn();
+    // 4. Productos con Stock Crítico
+    $stockCriticoCount = $pdo->query("SELECT COUNT(*) FROM Producto WHERE stock <= 5")->fetchColumn();
 
-    // 2. Obtener las últimas 5 ventas para la tabla rápida
-    $ultimasVentas = $pdo->query("SELECT v.*, u.nombre 
-                                  FROM Venta v 
-                                  JOIN Usuario u ON v.id_usuario = u.id_usuario 
-                                  ORDER BY v.fecha DESC LIMIT 5")->fetchAll();
+    // 5. Últimas 5 ventas (Corregido: Tabla Usuario y columna id_usuario)
+    $sqlVentas = "SELECT v.*, u.nombre 
+                  FROM Venta v 
+                  JOIN Usuario u ON v.id_usuario = u.id_usuario 
+                  ORDER BY v.fecha DESC LIMIT 5";
+
+    $ultimasVentas = $pdo->query($sqlVentas)->fetchAll();
 
 } catch (PDOException $e) {
     die("Error al cargar estadísticas: " . $e->getMessage());
@@ -122,8 +123,8 @@ try {
                                         <td><?php echo htmlspecialchars($v['nombre']); ?></td>
                                         <td class="fw-bold"><?php echo number_format($v['total'], 2); ?> Bs.</td>
                                         <td>
-                                            <span class="badge rounded-pill bg-<?php echo ($v['estado'] == 'Pendiente') ? 'warning text-dark' : 'success'; ?>">
-                                                <?php echo $v['estado']; ?>
+                                            <span class="badge rounded-pill bg-<?php echo ($v['estado_venta'] == 'Pendiente') ? 'warning text-dark' : 'success'; ?>">
+                                                <?php echo $v['estado_venta']; ?>
                                             </span>
                                         </td>
                                     </tr>

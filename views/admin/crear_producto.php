@@ -1,7 +1,10 @@
 <?php 
+require_once '../../config/db.php';   // <--- ¡ESTA LÍNEA FALTA O ESTÁ MAL LA RUTA!
 require_once '../../config/auth.php';
 // Solo los administradores pueden entrar aquí
 requerirAdmin(); 
+$stmtCat = $pdo->query("SELECT id_categoria, nombre_categoria FROM categoria ORDER BY nombre_categoria ASC");
+$categorias = $stmtCat->fetchAll();
 
 include '../includes/header.php'; 
 ?>
@@ -51,17 +54,18 @@ include '../includes/header.php';
                                 <label class="form-label fw-bold">Categoría</label>
                                 <select name="id_categoria" class="form-select" required>
                                     <option value="" selected disabled>Selecciona una...</option>
-                                    <option value="1">Laptops</option>
-                                    <option value="2">Periféricos</option>
-                                    <option value="3">Monitores</option>
-                                    <option value="4">Componentes</option>
+                                    <?php foreach($categorias as $cat): ?>
+                                        <option value="<?php echo $cat['id_categoria']; ?>">
+                                            <?php echo htmlspecialchars($cat['nombre_categoria']); ?>
+                                        </option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
 
                             <!-- Imagen del Producto -->
                             <div class="col-md-6 mb-4">
                                 <label class="form-label fw-bold">Imagen del Producto</label>
-                                <input type="file" name="imagen" class="form-control" accept="image/*" id="inputImagen" required>
+                                <input type="file" name="imagenes[]" class="form-control" accept="image/*" id="inputImagen" multiple required>
                                 <div class="form-text">Formatos aceptados: JPG, PNG, WEBP.</div>
                             </div>
                         </div>
@@ -89,16 +93,29 @@ include '../includes/header.php';
 </div>
 
 <script>
-    // Script para mostrar la vista previa de la imagen seleccionada
     const inputImagen = document.getElementById('inputImagen');
     const previewContainer = document.getElementById('previewContainer');
-    const imgPreview = document.getElementById('imgPreview');
 
     inputImagen.onchange = evt => {
-        const [file] = inputImagen.files;
-        if (file) {
-            imgPreview.src = URL.createObjectURL(file);
+        // Limpiamos el contenedor antes de mostrar las nuevas
+        previewContainer.innerHTML = '<p class="small fw-bold">Vista previa de imágenes:</p>';
+        const files = inputImagen.files;
+        
+        if (files.length > 0) {
             previewContainer.classList.remove('d-none');
+            
+            // Creamos una miniatura por cada archivo seleccionado
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.classList.add('img-thumbnail', 'me-2', 'mb-2');
+                    img.style.height = '100px';
+                    previewContainer.appendChild(img);
+                }
+                reader.readAsDataURL(file);
+            });
         }
     }
 </script>
