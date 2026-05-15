@@ -40,9 +40,36 @@ $total = 0;
                                         </div>
                                     </td>
                                     <td><?php echo number_format($item['precio'], 2); ?> Bs.</td>
-                                    <td>
-                                        <span class="badge bg-secondary px-3 py-2"><?php echo $item['cantidad']; ?></span>
-                                    </td>
+                                        <td>
+
+                                            <div class="d-flex align-items-center gap-2">
+
+                                                <!-- RESTAR -->
+                                                <a 
+                                                    href="../../controllers/CarritoController.php?restar=<?php echo $id; ?>"
+                                                    class="btn btn-sm btn-outline-light rounded-circle"
+                                                >
+                                                    <i class="bi bi-dash"></i>
+                                                </a>
+
+                                                <!-- CANTIDAD -->
+                                                <span 
+                                                    class="badge bg-primary px-3 py-2 fs-6"
+                                                >
+                                                    <?php echo $item['cantidad']; ?>
+                                                </span>
+
+                                                <!-- SUMAR -->
+                                                <a 
+                                                    href="../../controllers/CarritoController.php?sumar=<?php echo $id; ?>"
+                                                    class="btn btn-sm btn-outline-light rounded-circle"
+                                                >
+                                                    <i class="bi bi-plus"></i>
+                                                </a>
+
+                                            </div>
+
+                                        </td>
                                     <td class="fw-bold text-primary"><?php echo number_format($subtotal, 2); ?> Bs.</td>
                                     <td class="text-end pe-4">
                                         <a href="../../controllers/CarritoController.php?eliminar=<?php echo $id; ?>" class="text-danger">

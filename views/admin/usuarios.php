@@ -1,75 +1,265 @@
 <?php 
+
 require_once '../../config/db.php';
 require_once '../../config/auth.php';
-requerirAdmin(); 
 
-include '../includes/header.php'; 
+requerirAdmin();
 
-// 1. Obtener todos los usuarios registrados
+include '../includes/header.php';
+
+
+// OBTENER USUARIOS
 try {
-    // Ordenamos por rol y luego por nombre para facilitar la lectura
-    $sql = "SELECT id_usuario, nombre, correo, rol, creado_en FROM Usuario ORDER BY rol ASC, nombre ASC";
+
+    $sql = "
+        SELECT 
+            id_usuario,
+            nombre,
+            correo,
+            rol,
+            fecha_registro
+        FROM usuario
+        ORDER BY rol ASC, nombre ASC
+    ";
+
     $stmt = $pdo->query($sql);
+
     $usuarios = $stmt->fetchAll();
+
 } catch (PDOException $e) {
-    die("Error al obtener usuarios: " . $e->getMessage());
+
+    die(
+        "Error al obtener usuarios: " .
+        $e->getMessage()
+    );
+
 }
+
 ?>
 
 <div class="container my-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+
         <div>
-            <h2 class="fw-bold"><i class="bi bi-people-fill me-2 text-primary"></i>Usuarios Registrados</h2>
-            <p class="text-muted">Lista completa de clientes y administradores del sistema.</p>
+
+            <h2 class="fw-bold text-white mb-2">
+
+                <i class="bi bi-people-fill me-2 text-primary"></i>
+
+                Usuarios Registrados
+
+            </h2>
+
+            <p class="text-light opacity-75 mb-0">
+
+                Lista completa de clientes y administradores del sistema.
+
+            </p>
+
         </div>
-        <div class="badge bg-dark p-2 px-3 rounded-pill">
-            Total: <?php echo count($usuarios); ?> usuarios
+
+        <!-- TOTAL -->
+        <div class="badge bg-dark border border-primary px-4 py-3 rounded-pill fs-6 shadow">
+
+            <i class="bi bi-person-check me-2"></i>
+
+            Total:
+            <?php echo count($usuarios); ?>
+
+            usuarios
+
         </div>
+
     </div>
 
-    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+
+    <!-- CARD -->
+    <div class="card profile-card shadow-lg border-0 rounded-4 overflow-hidden">
+
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="bg-light">
+
+            <table class="table align-middle mb-0 user-table">
+
+                <!-- HEAD -->
+                <thead>
+
                     <tr>
-                        <th class="ps-4">ID</th>
-                        <th>Nombre Completo</th>
-                        <th>Correo Electrónico</th>
-                        <th>Rol</th>
-                        <th>Fecha de Registro</th>
-                        <th class="text-center">Estado</th>
+
+                        <th class="ps-4">
+
+                            ID
+
+                        </th>
+
+                        <th>
+
+                            Usuario
+
+                        </th>
+
+                        <th>
+
+                            Correo Electrónico
+
+                        </th>
+
+                        <th>
+
+                            Rol
+
+                        </th>
+
+                        <th>
+
+                            Fecha Registro
+
+                        </th>
+
+                        <th class="text-center">
+
+                            Estado
+
+                        </th>
+
                     </tr>
+
                 </thead>
+
+
+                <!-- BODY -->
                 <tbody>
+
                     <?php foreach ($usuarios as $u): ?>
+
                         <tr>
-                            <td class="ps-4 text-muted">#<?php echo $u['id_usuario']; ?></td>
+
+                            <!-- ID -->
+                            <td class="ps-4 text-secondary fw-semibold">
+
+                                #<?php echo $u['id_usuario']; ?>
+
+                            </td>
+
+
+                            <!-- USUARIO -->
                             <td>
+
                                 <div class="d-flex align-items-center">
-                                    <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
-                                        <i class="bi bi-person"></i>
+
+                                    <!-- AVATAR -->
+                                    <div class="user-avatar me-3">
+
+                                        <i class="bi bi-person-fill"></i>
+
                                     </div>
-                                    <span class="fw-bold"><?php echo htmlspecialchars($u['nombre']); ?></span>
+
+                                    <div>
+
+                                        <div class="fw-bold text-white">
+
+                                            <?php
+                                            echo htmlspecialchars(
+                                                $u['nombre']
+                                            );
+                                            ?>
+
+                                        </div>
+
+                                        <div class="small text-secondary">
+
+                                            Usuario activo
+
+                                        </div>
+
+                                    </div>
+
                                 </div>
+
                             </td>
-                            <td><?php echo htmlspecialchars($u['correo']); ?></td>
+
+
+                            <!-- CORREO -->
+                            <td class="text-light">
+
+                                <?php
+                                echo htmlspecialchars(
+                                    $u['correo']
+                                );
+                                ?>
+
+                            </td>
+
+
+                            <!-- ROL -->
                             <td>
+
                                 <?php if ($u['rol'] === 'admin'): ?>
-                                    <span class="badge bg-danger px-3 rounded-pill"><i class="bi bi-shield-lock me-1"></i> Admin</span>
+
+                                    <span class="badge role-admin">
+
+                                        <i class="bi bi-shield-lock me-1"></i>
+
+                                        Admin
+
+                                    </span>
+
                                 <?php else: ?>
-                                    <span class="badge bg-info text-dark px-3 rounded-pill">Cliente</span>
+
+                                    <span class="badge role-client">
+
+                                        <i class="bi bi-person me-1"></i>
+
+                                        Cliente
+
+                                    </span>
+
                                 <?php endif; ?>
+
                             </td>
-                            <td><?php echo date('d/m/Y', strtotime($u['creado_en'])); ?></td>
+
+
+                            <!-- FECHA -->
+                            <td class="text-secondary">
+
+                                <?php
+                                echo date(
+                                    'd/m/Y',
+                                    strtotime(
+                                        $u['fecha_registro']
+                                    )
+                                );
+                                ?>
+
+                            </td>
+
+
+                            <!-- ESTADO -->
                             <td class="text-center">
-                                <span class="text-success fw-bold small"><i class="bi bi-circle-fill me-1" style="font-size: 8px;"></i> Activo</span>
+
+                                <span class="status-active">
+
+                                    <i class="bi bi-circle-fill me-1"></i>
+
+                                    Activo
+
+                                </span>
+
                             </td>
+
                         </tr>
+
                     <?php endforeach; ?>
+
                 </tbody>
+
             </table>
+
         </div>
+
     </div>
+
 </div>
 
 <?php include '../includes/footer.php'; ?>

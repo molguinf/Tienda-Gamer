@@ -1,10 +1,8 @@
 <?php
 require_once '../config/db.php';
 require_once '../config/auth.php';
-// El carrito debe funcionar para cualquier usuario logueado
 requerirLogin();
 
-// Inicializar el carrito si no existe
 if (!isset($_SESSION['carrito'])) {
     $_SESSION['carrito'] = [];
 }
@@ -13,24 +11,25 @@ if (!isset($_SESSION['carrito'])) {
 if (isset($_GET['add'])) {
     $id = (int)$_GET['add'];
 
-    // Buscar el producto en la DB para validar stock y precio
+    // CORRECCIÓN: Tabla 'Producto' con P mayúscula según tu SQL
     $stmt = $pdo->prepare("SELECT id_producto, nombre, precio, imagen, stock FROM Producto WHERE id_producto = ?");
     $stmt->execute([$id]);
     $producto = $stmt->fetch();
 
     if ($producto && $producto['stock'] > 0) {
-        // Si el producto ya está en el carrito, aumentamos la cantidad
+        // Lógica Multimagen: Tomamos solo la primera para mostrarla en el carrito
+        $fotos = explode(',', $producto['imagen']);
+        $foto_principal = !empty($fotos[0]) ? $fotos[0] : 'default.png';
+
         if (isset($_SESSION['carrito'][$id])) {
-            // Validar que no exceda el stock disponible
             if ($_SESSION['carrito'][$id]['cantidad'] < $producto['stock']) {
                 $_SESSION['carrito'][$id]['cantidad']++;
             }
         } else {
-            // Si es nuevo, lo añadimos al array
             $_SESSION['carrito'][$id] = [
                 'nombre' => $producto['nombre'],
                 'precio' => $producto['precio'],
-                'imagen' => $producto['imagen'],
+                'imagen' => $foto_principal, // Guardamos solo una imagen
                 'cantidad' => 1
             ];
         }
@@ -41,7 +40,7 @@ if (isset($_GET['add'])) {
     exit();
 }
 
-// 2. ACCIÓN: ELIMINAR UN PRODUCTO
+// 2. ELIMINAR Y VACIAR (Sin cambios, pero asegúrate de incluirlos)
 if (isset($_GET['eliminar'])) {
     $id = (int)$_GET['eliminar'];
     unset($_SESSION['carrito'][$id]);
@@ -49,7 +48,52 @@ if (isset($_GET['eliminar'])) {
     exit();
 }
 
-// 3. ACCIÓN: VACIAR TODO EL CARRITO
+
+// =========================================
+// SUMAR CANTIDAD
+// =========================================
+if(isset($_GET['sumar'])){
+
+    $id = (int)$_GET['sumar'];
+
+    if(isset($_SESSION['carrito'][$id])){
+
+        $_SESSION['carrito'][$id]['cantidad']++;
+
+    }
+
+    header('Location: ../views/cliente/carrito.php');
+
+    exit();
+}
+
+// =========================================
+// RESTAR CANTIDAD
+// =========================================
+if(isset($_GET['restar'])){
+
+    $id = (int)$_GET['restar'];
+
+    if(isset($_SESSION['carrito'][$id])){
+
+        $_SESSION['carrito'][$id]['cantidad']--;
+
+        // SI LLEGA A 0 SE ELIMINA
+        if($_SESSION['carrito'][$id]['cantidad'] <= 0){
+
+            unset($_SESSION['carrito'][$id]);
+
+        }
+
+    }
+
+    header('Location: ../views/cliente/carrito.php');
+
+    exit();
+}
+
+
+
 if (isset($_GET['vaciar'])) {
     $_SESSION['carrito'] = [];
     header("Location: ../views/cliente/carrito.php");

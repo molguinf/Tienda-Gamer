@@ -532,53 +532,1259 @@ body{
 }
 
 
+
 /* =========================
-   BENEFICIOS
+   BENEFITS SECTION
 ========================= */
 
 .benefits-section{
-    background:#081120;
+    background:
+        radial-gradient(circle at top left, rgba(0,247,255,0.08), transparent 35%),
+        linear-gradient(to right, #020617, #071426);
+    position: relative;
 }
 
 .benefit-card{
     background: rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:24px;
-    padding:40px 30px;
+    border: 1px solid rgba(255,255,255,0.06);
+    backdrop-filter: blur(14px);
+    border-radius: 24px;
+    padding: 40px 25px;
+    transition: 0.35s ease;
     text-align:center;
-    transition:0.4s ease;
-    backdrop-filter:blur(10px);
-    height:100%;
 }
 
 .benefit-card:hover{
-    transform:translateY(-10px);
-    border-color:var(--primary-color);
-    box-shadow:0 0 35px rgba(0,247,255,0.18);
+    transform: translateY(-8px);
+    border-color: rgba(0,247,255,0.3);
+    box-shadow: 0 0 30px rgba(0,247,255,0.12);
 }
 
 .benefit-icon{
-    width:90px;
-    height:90px;
-    margin:auto;
-    margin-bottom:25px;
-    border-radius:50%;
+    width: 85px;
+    height: 85px;
+    margin: 0 auto 25px;
+    border-radius: 50%;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:2.5rem;
-    background:linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    box-shadow:0 0 25px rgba(0,247,255,0.35);
+    font-size: 2rem;
+    color: white;
+    background: linear-gradient(
+        135deg,
+        var(--primary-color),
+        var(--secondary-color)
+    );
+    box-shadow: 0 0 25px rgba(0,247,255,0.35);
 }
 
 .benefit-card h4{
-    color:white;
-    font-weight:700;
-    margin-bottom:15px;
+    color: white;
+    font-weight: 700;
+    margin-bottom: 15px;
 }
 
 .benefit-card p{
-    color:#94a3b8;
-    margin:0;
+    color: rgba(255,255,255,0.72);
+    margin: 0;
 }
 
+/* =========================
+   FIX NAVBAR OVERLAY
+========================= */
+
+body{
+    padding-top: 120px;
+}
+
+.profile-card{
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(59,130,246,.25);
+    color: white;
+}
+
+.profile-card .form-control{
+    background: #0f172a;
+    border: 1px solid #334155;
+    color: white;
+}
+
+.profile-card .form-control:focus{
+    background: #0f172a;
+    color: white;
+    border-color: #3b82f6;
+    box-shadow: 0 0 10px rgba(59,130,246,.4);
+}
+
+.profile-card .nav-link{
+    color: #cbd5e1;
+}
+
+.profile-card .nav-link.active{
+    background: linear-gradient(90deg,#2563eb,#3b82f6);
+    color: white;
+}
+
+.profile-card label{
+    color: #e2e8f0;
+}
+
+.profile-card .text-muted{
+    color: #94a3b8 !important;
+}
+/* =========================
+   AUTH PAGES
+========================= */
+
+.auth-card{
+    background: rgba(15, 23, 42, 0.96);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(59,130,246,.25);
+    color: white;
+}
+
+.auth-card h1,
+.auth-card h2,
+.auth-card h3,
+.auth-card h4,
+.auth-card h5,
+.auth-card label{
+    color: white;
+}
+
+.auth-card p{
+    color: #cbd5e1 !important;
+    letter-spacing: .5px;
+}
+
+.auth-card .form-control{
+    background: #0f172a;
+    border: 1px solid #334155;
+    color: white;
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.auth-card .form-control::placeholder{
+    color: #94a3b8;
+}
+
+.auth-card .form-control:focus{
+    background: #0f172a;
+    color: white;
+    border-color: #3b82f6;
+    box-shadow: 0 0 12px rgba(59,130,246,.35);
+}
+
+.auth-card .input-group-text{
+    background: #0f172a;
+    border: 1px solid #334155;
+    color: #94a3b8;
+}
+
+.auth-card .form-text{
+    color: #94a3b8 !important;
+}
+
+.auth-btn{
+    background: linear-gradient(
+        90deg,
+        #2563eb,
+        #3b82f6
+    );
+    border: none;
+    border-radius: 50px;
+    padding: 12px;
+    font-weight: 700;
+    transition: .3s ease;
+}
+
+.auth-btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(59,130,246,.4);
+}
+
+.auth-icon{
+    color: #4cc9f0;
+    font-size: 5rem;
+}
+
+/* =====================================================
+   NUEVAS PRODUCT CARDS - GAMING PREMIUM
+===================================================== */
+
+.product-card{
+
+    background: linear-gradient(
+        180deg,
+        rgba(15,23,42,.98),
+        rgba(17,24,39,.95)
+    );
+
+    border: 1px solid rgba(59,130,246,.15);
+
+    border-radius: 28px;
+
+    overflow: hidden;
+
+    transition: all .35s ease;
+
+    position: relative;
+
+    backdrop-filter: blur(12px);
+
+    height: 100%;
+}
+
+.product-card:hover{
+
+    transform: translateY(-8px);
+
+    border-color: rgba(59,130,246,.45);
+
+    box-shadow:
+        0 20px 40px rgba(0,0,0,.45),
+        0 0 25px rgba(59,130,246,.15);
+}
+
+
+/* IMAGEN */
+
+.product-image-wrapper{
+
+    height: 240px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(59,130,246,.15),
+            transparent 70%
+        );
+}
+
+.product-image{
+
+    max-height: 200px;
+
+    width: auto;
+
+    object-fit: contain;
+
+    transition: transform .4s ease;
+}
+
+.product-card:hover .product-image{
+
+    transform: scale(1.06);
+}
+
+
+/* CONTENIDO */
+
+.product-content{
+
+    padding: 24px;
+}
+
+
+/* CATEGORIA */
+
+.product-category{
+
+    color: #3b82f6;
+
+    font-size: .82rem;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 10px;
+}
+
+
+/* TITULO */
+
+.product-title{
+
+    color: white;
+
+    font-size: 1.45rem;
+
+    font-weight: 800;
+
+    margin-bottom: 12px;
+
+    line-height: 1.2;
+}
+
+
+/* DESCRIPCION */
+
+.product-description{
+
+    color: #94a3b8;
+
+    font-size: .95rem;
+
+    min-height: 48px;
+
+    margin-bottom: 18px;
+}
+
+
+/* PRECIO */
+
+.product-price{
+
+    color: white;
+
+    font-size: 2rem;
+
+    font-weight: 800;
+
+    margin-bottom: 20px;
+}
+
+.product-price span{
+
+    font-size: 1rem;
+
+    color: #94a3b8;
+
+    font-weight: 500;
+}
+
+
+/* BOTONES */
+
+.product-actions{
+
+    display: flex;
+
+    gap: 10px;
+}
+
+.btn-edit{
+
+    flex: 1;
+
+    background: linear-gradient(
+        90deg,
+        #2563eb,
+        #3b82f6
+    );
+
+    border: none;
+
+    color: white;
+
+    border-radius: 14px;
+
+    font-weight: 700;
+
+    padding: 12px;
+
+    transition: .3s ease;
+}
+
+.btn-edit:hover{
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 0 18px rgba(59,130,246,.35);
+
+    color: white;
+}
+
+.btn-delete{
+
+    border-radius: 14px;
+
+    padding: 12px 16px;
+}
+
+
+/* BADGE */
+
+.product-badge{
+
+    position: absolute;
+
+    top: 18px;
+
+    right: 18px;
+
+    background: linear-gradient(
+        90deg,
+        #ec4899,
+        #f43f5e
+    );
+
+    color: white;
+
+    font-size: .75rem;
+
+    font-weight: 700;
+
+    padding: 8px 14px;
+
+    border-radius: 50px;
+
+    z-index: 10;
+
+    box-shadow: 0 0 18px rgba(244,63,94,.35);
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 768px){
+
+    .product-title{
+
+        font-size: 1.2rem;
+    }
+
+    .product-price{
+
+        font-size: 1.5rem;
+    }
+
+    .product-image-wrapper{
+
+        height: 200px;
+    }
+
+}
+
+
+/* =====================================================
+   USERS TABLE
+===================================================== */
+
+.user-table{
+
+    color: white;
+}
+
+.user-table thead{
+
+    background: rgba(15,23,42,.95);
+}
+
+.user-table thead th{
+
+    color: #cbd5e1;
+
+    border-bottom: 1px solid rgba(255,255,255,.08);
+
+    padding: 18px 12px;
+
+    font-size: .9rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: .5px;
+}
+
+.user-table tbody tr{
+
+    transition: .3s ease;
+
+    border-bottom: 1px solid rgba(255,255,255,.04);
+}
+
+.user-table tbody tr:hover{
+
+    background: rgba(59,130,246,.06);
+}
+
+.user-table td{
+
+    padding: 18px 12px;
+
+    vertical-align: middle;
+
+    background: transparent !important;
+}
+
+
+/* AVATAR */
+
+.user-avatar{
+
+    width: 48px;
+
+    height: 48px;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #3b82f6
+    );
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: white;
+
+    font-size: 1.1rem;
+
+    box-shadow: 0 0 15px rgba(59,130,246,.3);
+}
+
+
+/* ROLES */
+
+.role-admin{
+
+    background: linear-gradient(
+        90deg,
+        #ef4444,
+        #dc2626
+    );
+
+    padding: 10px 16px;
+
+    border-radius: 50px;
+
+    font-size: .8rem;
+}
+
+.role-client{
+
+    background: linear-gradient(
+        90deg,
+        #06b6d4,
+        #0891b2
+    );
+
+    padding: 10px 16px;
+
+    border-radius: 50px;
+
+    font-size: .8rem;
+
+    color: white;
+}
+
+
+/* STATUS */
+
+.status-active{
+
+    color: #22c55e;
+
+    font-weight: 700;
+
+    font-size: .9rem;
+}
+
+.status-active i{
+
+    font-size: .5rem;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 768px){
+
+    .user-table{
+
+        min-width: 900px;
+    }
+
+}
+
+/* TABLE FIX */
+
+.dashboard-table{
+
+    color: white;
+}
+
+.dashboard-table thead{
+
+    background: rgba(59,130,246,.08);
+}
+
+.dashboard-table thead th{
+
+    color: #cbd5e1;
+
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.dashboard-table tbody td{
+
+    color: white;
+
+    border-color: rgba(255,255,255,.05);
+}
+
+.dashboard-table tbody tr{
+
+    background: transparent !important;
+}
+
+.dashboard-table tbody tr:hover{
+
+    background: rgba(59,130,246,.05) !important;
+}
+
+
+/* =====================================================
+   DASHBOARD ADMIN
+===================================================== */
+
+.dashboard-container{
+
+    padding-top: 40px;
+
+    padding-bottom: 40px;
+}
+
+
+/* =========================
+   STATS CARDS
+========================= */
+
+.dashboard-stat-card{
+
+    background: linear-gradient(
+        145deg,
+        rgba(15,23,42,.98),
+        rgba(30,41,59,.95)
+    );
+
+    border: 1px solid rgba(59,130,246,.15);
+
+    border-radius: 24px;
+
+    padding: 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    transition: .35s ease;
+
+    min-height: 130px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.25);
+}
+
+.dashboard-stat-card:hover{
+
+    transform: translateY(-5px);
+
+    border-color: rgba(59,130,246,.4);
+
+    box-shadow:
+        0 20px 40px rgba(0,0,0,.35),
+        0 0 20px rgba(59,130,246,.12);
+}
+
+
+/* ICON */
+
+.stat-icon{
+
+    width: 70px;
+
+    height: 70px;
+
+    border-radius: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 1.6rem;
+
+    color: white;
+
+    flex-shrink: 0;
+}
+
+
+/* COLORS */
+
+.stat-primary .stat-icon{
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #3b82f6
+    );
+}
+
+.stat-warning .stat-icon{
+
+    background: linear-gradient(
+        135deg,
+        #f59e0b,
+        #fbbf24
+    );
+}
+
+.stat-info .stat-icon{
+
+    background: linear-gradient(
+        135deg,
+        #06b6d4,
+        #22d3ee
+    );
+}
+
+.stat-danger .stat-icon{
+
+    background: linear-gradient(
+        135deg,
+        #ef4444,
+        #f87171
+    );
+}
+
+
+/* TEXT */
+
+.stat-label{
+
+    color: #94a3b8;
+
+    font-size: .9rem;
+
+    margin-bottom: 6px;
+
+    font-weight: 600;
+}
+
+.stat-value{
+
+    color: white;
+
+    font-size: 1.8rem;
+
+    font-weight: 800;
+
+    line-height: 1;
+}
+
+
+/* =========================
+   MAIN CARDS
+========================= */
+
+.dashboard-card{
+
+    background: linear-gradient(
+        180deg,
+        rgba(15,23,42,.98),
+        rgba(17,24,39,.96)
+    ) !important;
+
+    border: 1px solid rgba(59,130,246,.15) !important;
+
+    color: white;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.25);
+
+    backdrop-filter: blur(12px);
+
+    overflow: hidden;
+}
+
+
+/* TITLES */
+
+.dashboard-card h5{
+
+    color: white;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.dashboard-table{
+
+    color: white;
+
+    margin-bottom: 0;
+}
+
+.dashboard-table thead{
+
+    background: rgba(59,130,246,.08);
+}
+
+.dashboard-table thead th{
+
+    color: #cbd5e1;
+
+    border-bottom: 1px solid rgba(255,255,255,.08);
+
+    padding: 18px;
+}
+
+.dashboard-table tbody td{
+
+    color: white;
+
+    padding: 18px;
+
+    border-color: rgba(255,255,255,.05);
+
+    background: transparent !important;
+}
+
+.dashboard-table tbody tr{
+
+    background: transparent !important;
+
+    transition: .3s ease;
+}
+
+.dashboard-table tbody tr:hover{
+
+    background: rgba(59,130,246,.05) !important;
+}
+
+
+/* =========================
+   QUICK ACTIONS
+========================= */
+
+.quick-action-btn{
+
+    background: rgba(59,130,246,.08);
+
+    border: 1px solid rgba(59,130,246,.18);
+
+    color: white;
+
+    padding: 15px 18px;
+
+    border-radius: 16px;
+
+    text-decoration: none;
+
+    transition: .3s ease;
+
+    font-weight: 600;
+
+    display: block;
+}
+
+.quick-action-btn:hover{
+
+    background: rgba(59,130,246,.15);
+
+    transform: translateX(4px);
+
+    color: white;
+}
+
+/* =====================================================
+   INVENTORY TABLE
+===================================================== */
+
+.inventory-table{
+
+    color: white;
+
+    margin-bottom: 0;
+}
+
+
+/* HEAD */
+
+.inventory-table thead{
+
+    background: rgba(59,130,246,.08);
+}
+
+.inventory-table thead th{
+
+    color: #cbd5e1;
+
+    border-bottom: 1px solid rgba(255,255,255,.08);
+
+    padding: 18px;
+
+    font-size: .9rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: .5px;
+}
+
+
+/* BODY */
+
+.inventory-table tbody tr{
+
+    background: transparent !important;
+
+    transition: .3s ease;
+}
+
+.inventory-table tbody tr:hover{
+
+    background: rgba(59,130,246,.05) !important;
+}
+
+.inventory-table tbody td{
+
+    background: transparent !important;
+
+    padding: 18px;
+
+    border-color: rgba(255,255,255,.05);
+
+    vertical-align: middle;
+
+    color: white;
+}
+
+
+/* IMAGE */
+
+.inventory-image{
+
+    width: 70px;
+
+    height: 70px;
+
+    object-fit: cover;
+
+    border-radius: 16px;
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.25);
+}
+
+
+/* CATEGORY */
+
+.inventory-category{
+
+    background: rgba(59,130,246,.12);
+
+    color: #60a5fa;
+
+    padding: 8px 14px;
+
+    border-radius: 50px;
+
+    font-size: .8rem;
+
+    font-weight: 700;
+}
+
+
+/* PRICE */
+
+.inventory-price{
+
+    color: #22c55e;
+
+    font-weight: 800;
+
+    font-size: 1rem;
+}
+
+
+/* STOCK */
+
+.stock-badge{
+
+    padding: 8px 14px;
+
+    border-radius: 50px;
+
+    font-weight: 700;
+
+    font-size: .85rem;
+}
+
+.stock-ok{
+
+    background: rgba(34,197,94,.12);
+
+    color: #22c55e;
+}
+
+.stock-low{
+
+    background: rgba(239,68,68,.12);
+
+    color: #ef4444;
+}
+
+
+/* ACTIONS */
+
+.inventory-btn{
+
+    width: 42px;
+
+    height: 42px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    transition: .3s ease;
+
+    color: white;
+}
+
+
+/* EDIT */
+
+.edit-btn{
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #3b82f6
+    );
+}
+
+.edit-btn:hover{
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 0 18px rgba(59,130,246,.35);
+}
+
+
+/* DELETE */
+
+.delete-btn{
+
+    background: linear-gradient(
+        135deg,
+        #ef4444,
+        #f87171
+    );
+}
+
+.delete-btn:hover{
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 0 18px rgba(239,68,68,.35);
+}
+/* FIX BOOTSTRAP WHITE TABLE */
+
+.table{
+
+    --bs-table-bg: transparent !important;
+
+    --bs-table-striped-bg: transparent !important;
+
+    --bs-table-hover-bg: rgba(59,130,246,.05) !important;
+
+    background: transparent !important;
+
+    color: white !important;
+}
+
+
+/* =====================================================
+   SALES TABLE
+===================================================== */
+
+.sales-table{
+
+    color: white;
+
+    margin-bottom: 0;
+}
+
+
+/* HEAD */
+
+.sales-table thead{
+
+    background: rgba(59,130,246,.08);
+}
+
+.sales-table thead th{
+
+    color: #cbd5e1;
+
+    border-bottom: 1px solid rgba(255,255,255,.08);
+
+    padding: 18px;
+
+    font-size: .9rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: .5px;
+}
+
+
+/* BODY */
+
+.sales-table tbody tr{
+
+    background: transparent !important;
+
+    transition: .3s ease;
+}
+
+.sales-table tbody tr:hover{
+
+    background: rgba(59,130,246,.05) !important;
+}
+
+.sales-table tbody td{
+
+    color: white;
+
+    border-color: rgba(255,255,255,.05);
+
+    padding: 18px;
+
+    background: transparent !important;
+
+    vertical-align: middle;
+}
+
+
+/* INPUTS */
+
+.sales-input{
+
+    background: rgba(15,23,42,.95) !important;
+
+    border: 1px solid rgba(59,130,246,.18);
+
+    color: white !important;
+
+    border-radius: 14px;
+
+    padding: 12px;
+}
+
+.sales-input:focus{
+
+    background: rgba(15,23,42,.95) !important;
+
+    color: white !important;
+
+    border-color: #3b82f6;
+
+    box-shadow: 0 0 15px rgba(59,130,246,.25);
+}
+
+
+/* PAYMENT */
+
+.payment-badge{
+
+    background: rgba(59,130,246,.12);
+
+    color: #60a5fa;
+
+    padding: 10px 16px;
+
+    border-radius: 50px;
+
+    font-size: .8rem;
+
+    font-weight: 700;
+}
+
+
+/* DETAIL */
+
+.sales-detail{
+
+    background: rgba(2,6,23,.95) !important;
+}
+
+.sales-detail-card{
+
+    background: rgba(15,23,42,.95);
+
+    border: 1px solid rgba(59,130,246,.15);
+
+    border-radius: 20px;
+
+    padding: 20px;
+}
+
+
+/* ACTION BUTTON */
+
+.sales-action-btn{
+
+    background: linear-gradient(
+        90deg,
+        #2563eb,
+        #3b82f6
+    );
+
+    border: none;
+
+    color: white;
+
+    padding: 10px 16px;
+
+    border-radius: 50px;
+
+    font-weight: 700;
+
+    transition: .3s ease;
+}
+
+.sales-action-btn:hover{
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 0 18px rgba(59,130,246,.35);
+
+    color: white;
+}
