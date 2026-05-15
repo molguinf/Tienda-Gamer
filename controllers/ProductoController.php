@@ -8,38 +8,15 @@ require_once '../config/auth.php';
 
 requerirAdmin();
 
-$ruta_base = "../assets/img/productos/";
+$ruta_base = __DIR__ . "/../assets/img/productos/";
 
-// --- 1. ACCIÓN DE ELIMINAR (Borra todos los archivos físicos) ---
-if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id'])) {
-    $id = (int)$_GET['id'];
+if (!is_dir($ruta_base)) {
 
-    try {
-        $stmtImg = $pdo->prepare("SELECT imagen FROM Producto WHERE id_producto = ?");
-        $stmtImg->execute([$id]);
-        $producto = $stmtImg->fetch();
+    mkdir($ruta_base, 0777, true);
 
-        if ($producto) {
-            // Convertimos el string de la BD en array para borrar CADA foto
-            $fotos = explode(',', $producto['imagen']);
-            foreach ($fotos as $foto) {
-                $foto = trim($foto);
-                if ($foto !== 'default_product.png' && !empty($foto)) {
-                    $archivo = $ruta_base . $foto;
-                    if (file_exists($archivo)) { @unlink($archivo); }
-                }
-            }
-
-            $delete = $pdo->prepare("DELETE FROM Producto WHERE id_producto = ?");
-            $delete->execute([$id]);
-
-            header("Location: ../views/admin/gestion_productos.php?msj=eliminado");
-            exit();
-        }
-    } catch (PDOException $e) {
-        die("Error al eliminar: " . $e->getMessage());
-    }
 }
+
+
 
 // --- 2. ACCIÓN DE GUARDAR NUEVO (Soporta múltiples archivos) ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn_guardar'])) {
@@ -62,8 +39,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn_guardar'])) {
 
             if (in_array($file_ext, $extensiones_permitidas)) {
                 $nuevo_nombre = "prod_" . bin2hex(random_bytes(4)) . "_" . time() . "." . $file_ext;
-                if (move_uploaded_file($tmp_name, $ruta_base . $nuevo_nombre)) {
+                if (
+                    move_uploaded_file(
+                        $tmp_name,
+                        $ruta_base . $nuevo_nombre
+                    )
+                ) {
+
                     $nombres_imagenes[] = $nuevo_nombre;
+
+                } else {
+
+                    die(
+                        "Error al mover imagen: " .
+                        $file_name
+                    );
+
                 }
             }
         }
@@ -116,8 +107,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btn_actualizar'])) {
             $file_ext = strtolower(pathinfo($_FILES['imagenes_nuevas']['name'][$key], PATHINFO_EXTENSION));
             $nuevo_nombre = "prod_" . bin2hex(random_bytes(4)) . "_" . time() . "." . $file_ext;
             
-            if (move_uploaded_file($tmp_name, $ruta_base . $nuevo_nombre)) {
+            if (
+                move_uploaded_file(
+                    $tmp_name,
+                    $ruta_base . $nuevo_nombre
+                )
+            ) {
+
                 $imagenes_a_mantener[] = $nuevo_nombre;
+
+            } else {
+
+                die(
+                    "Error al mover nueva imagen."
+                );
+
             }
         }
     }

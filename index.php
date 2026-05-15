@@ -352,7 +352,7 @@ include 'views/includes/header.php';
 
                                     <!-- ELIMINAR -->
                                     <a
-                                        href="controllers/EliminarProductoController.php?id=<?php echo $p['id_producto']; ?>"
+                                        href="controllers/ProductoController.php?action=delete&id=<?php echo $p['id_producto']; ?>"
                                         class="btn btn-danger btn-delete"
                                         onclick="return confirm('¿Eliminar este producto?')"
                                     >
