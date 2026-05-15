@@ -10,6 +10,7 @@ $productos = [];
 
 if (!empty($fav_ids)) {
     $in  = str_repeat('?,', count($fav_ids) - 1) . '?';
+    // Corregido: Tabla 'Producto' con P mayúscula
     $sql = "SELECT * FROM Producto WHERE id_producto IN ($in)";
     $stmt = $pdo->prepare($sql);
     $stmt->execute($fav_ids);
@@ -22,10 +23,18 @@ if (!empty($fav_ids)) {
 
     <?php if (!empty($productos)): ?>
         <div class="row row-cols-1 row-cols-md-3 g-4">
-            <?php foreach ($productos as $p): ?>
+            <?php foreach ($productos as $p): 
+                // --- LÓGICA DE IMAGEN ---
+                $fotos = explode(',', $p['imagen']);
+                $foto_principal = !empty($fotos[0]) ? $fotos[0] : 'default_product.png';
+            ?>
                 <div class="col">
                     <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
-                        <img src="../../assets/img/productos/<?php echo $p['imagen']; ?>" class="card-img-top" style="height: 200px; object-fit: cover;">
+                        <img src="../../assets/img/productos/<?php echo $foto_principal; ?>" 
+                             class="card-img-top" 
+                             style="height: 200px; object-fit: cover;"
+                             alt="<?php echo htmlspecialchars($p['nombre']); ?>">
+                             
                         <div class="card-body">
                             <h5 class="fw-bold"><?php echo htmlspecialchars($p['nombre']); ?></h5>
                             <p class="text-primary fw-bold fs-5"><?php echo number_format($p['precio'], 2); ?> Bs.</p>

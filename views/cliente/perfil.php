@@ -1,4 +1,7 @@
-<?php 
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+} 
 require_once '../../config/db.php';
 require_once '../../config/auth.php';
 // Aseguramos que solo usuarios logueados entren
@@ -7,7 +10,7 @@ requerirLogin();
 include '../includes/header.php'; 
 
 // Obtener datos frescos del usuario desde la BD
-$stmt = $pdo->prepare("SELECT nombre, correo, rol, creado_en FROM Usuario WHERE id_usuario = ?");
+$stmt = $pdo->prepare("SELECT nombre, correo, rol, fecha_registro FROM usuario WHERE id_usuario = ?");
 $stmt->execute([$_SESSION['id_usuario']]);
 $user = $stmt->fetch();
 ?>
@@ -26,7 +29,7 @@ $user = $stmt->fetch();
                     Rol: <?php echo strtoupper($user['rol']); ?>
                 </span>
                 <hr>
-                <p class="small text-muted">Miembro desde: <?php echo date('d/m/Y', strtotime($user['creado_en'])); ?></p>
+                <p class="small text-muted">Miembro desde: <?php echo date('d/m/Y', strtotime($user['fecha_registro'])); ?></p>
             </div>
         </div>
 

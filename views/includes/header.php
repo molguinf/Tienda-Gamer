@@ -1,3 +1,9 @@
+<?php
+// 1. Iniciar sesión solo si no ha sido iniciada antes
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,7 +17,7 @@
     <!-- Google Fonts: Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <!-- Estilos personalizados -->
-    <link rel="stylesheet" href="/Tienda-Gamer/assets/css/style.css">
+    <link rel="stylesheet" href="/TiendaGamer/assets/css/style.css">
     <style>
         body { font-family: 'Poppins', sans-serif; }
         .navbar-brand { letter-spacing: 1px; }
@@ -50,14 +56,14 @@
     </a>
 
     <!-- Icono de Carrito con Contador (puedes añadir la lógica del carrito aquí también) -->
-    <a href="/TiendaGamer/views/cliente/carrito.php" class="text-white me-4 position-relative text-decoration-none">
-        <i class="bi bi-cart3 fs-5"></i>
-        <?php if (!empty($_SESSION['carrito'])): ?>
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary" style="font-size: 0.6rem;">
-                <?php echo count($_SESSION['carrito']); ?>
-            </span>
-        <?php endif; ?>
-    </a>
+    <a href="/TiendaGamer/views/cliente/carrito.php" class="text-white me-4 position-relative">
+    <i class="bi bi-cart3 fs-5"></i>
+    <?php if (!empty($_SESSION['carrito'])): ?>
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+            <?php echo array_sum(array_column($_SESSION['carrito'], 'cantidad')); ?>
+        </span>
+    <?php endif; ?>
+</a>
 
     <!-- Lógica de Usuario: ¿Está logueado? -->
     <?php if(!isset($_SESSION['id_usuario'])): ?>
@@ -96,6 +102,9 @@
                     </li>
                     <li><a class="dropdown-item" href="/TiendaGamer/views/admin/gestion_productos.php">
             <i class="bi bi-tags me-2"></i>Editar Productos</a>
+            <li><a class="dropdown-item" href="/TiendaGamer/views/admin/gestion_categorias.php">
+    <i class="bi bi-tags me-2"></i>Gestionar Categorías</a>
+</li>
         </li>
     <?php endif; ?>
 

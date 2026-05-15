@@ -7,17 +7,19 @@ include '../includes/header.php';
 
 // 1. Consultar datos enfocados en logística
 try {
-    // Calculamos el valor total del inventario (Precio * Stock)
-    $sql = "SELECT p.*, c.nombre as categoria, (p.precio * p.stock) as valor_total
+    // CORRECCIÓN: Tablas en Mayúsculas y nombre_categoria
+    $sql = "SELECT p.*, c.nombre_categoria as categoria, (p.precio * p.stock) as valor_total
             FROM Producto p 
             INNER JOIN Categoria c ON p.id_categoria = c.id_categoria 
-            ORDER BY p.stock ASC"; // Ordenado por menor stock primero
+            ORDER BY p.stock ASC"; 
     $stmt = $pdo->query($sql);
     $productos = $stmt->fetchAll();
 
     // Resumen rápido
     $valorInventario = 0;
-    foreach($productos as $prod) { $valorInventario += $prod['valor_total']; }
+    foreach($productos as $prod) { 
+        $valorInventario += $prod['valor_total']; 
+    }
     
 } catch (PDOException $e) {
     die("Error al cargar inventario: " . $e->getMessage());
@@ -28,7 +30,7 @@ try {
     <div class="d-flex justify-content-between align-items-end mb-4">
         <div>
             <h2 class="fw-bold"><i class="bi bi-box-seam me-2 text-primary"></i>Reporte de Inventario</h2>
-            <p class="text-muted mb-0">Análisis de stock y valorización de mercadería.</p>
+            <p class="text-muted mb-0">Análisis de stock y valorización de mercadería en **Tienda Gamer**.</p>
         </div>
         <div class="text-end">
             <h5 class="text-muted mb-0 small">Valor Total en Almacén:</h5>
@@ -36,7 +38,6 @@ try {
         </div>
     </div>
 
-    <!-- Filtros Rápidos -->
     <div class="alert alert-light border-0 shadow-sm rounded-4 mb-4">
         <div class="row align-items-center">
             <div class="col-md-8">
@@ -67,11 +68,12 @@ try {
                 <tbody>
                     <?php foreach ($productos as $p): ?>
                         <tr class="<?php echo ($p['stock'] <= 5) ? 'table-danger-subtle' : ''; ?>">
-                            <td class="ps-4">PROD-<?php echo str_pad($p['id_producto'], 4, "0", STR_PAD_LEFT); ?></td>
+                            <td class="ps-4 text-muted">PROD-<?php echo str_pad($p['id_producto'], 4, "0", STR_PAD_LEFT); ?></td>
                             <td>
                                 <div class="fw-bold"><?php echo htmlspecialchars($p['nombre']); ?></div>
+                                <small class="text-muted"><?php echo htmlspecialchars($p['marca']); ?></small>
                             </td>
-                            <td><?php echo $p['categoria']; ?></td>
+                            <td><?php echo htmlspecialchars($p['categoria']); ?></td>
                             <td>
                                 <?php if($p['stock'] <= 5): ?>
                                     <span class="badge bg-danger rounded-pill"><i class="bi bi-arrow-down-circle me-1"></i>Crítico: <?php echo $p['stock']; ?></span>
@@ -93,9 +95,10 @@ try {
 
 <style>
     @media print {
-        .btn, .alert, header, footer { display: none !important; }
+        .btn, .alert, header, footer, nav { display: none !important; }
+        body { background: white !important; padding: 0 !important; }
         .container { max-width: 100% !important; width: 100% !important; margin: 0 !important; padding: 0 !important; }
-        .card { shadow: none !important; border: 1px solid #ddd !important; }
+        .card { box-shadow: none !important; border: 1px solid #ddd !important; }
     }
     .table-danger-subtle { background-color: #fceaea !important; }
 </style>
